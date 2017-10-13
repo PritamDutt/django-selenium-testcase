@@ -1,0 +1,7 @@
+*.sqlite3
+.coverage
+htmlcov
+*driver.log
+*.pyc
+dist
+*egg-info
