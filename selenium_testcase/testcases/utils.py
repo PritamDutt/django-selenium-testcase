@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+import sys
+
 from selenium.common.exceptions import StaleElementReferenceException
 from time import time, sleep
 
@@ -97,3 +99,13 @@ def dom_contains(browser, content):
             pass
 
     return False
+
+
+# Note: This function was adapted from
+# http://codeinthehole.com/tips/how-to-reload-djangos-url-config/
+
+def reload_urlconf(urlconf=None):
+    if urlconf is None:
+        urlconf = settings.ROOT_URLCONF
+    if urlconf in sys.modules:
+        reload(sys.modules[urlconf])
