@@ -10,7 +10,7 @@ from django.conf import settings
 
 # allow wait_for to be overridden by settings
 TIMEOUT = getattr(settings, 'SELENIUM_TESTCASE_TIMEOUT', 15)
-CHECK_EVERY = getattr(settings, 'SELENIUM_CHECK_EVERY', 0.2)
+CHECK_EVERY = getattr(settings, 'SELENIUM_TESTCASE_CHECK_EVERY', 0.2)
 
 
 # Note: This function was copied from code in the aloe-webdriver
