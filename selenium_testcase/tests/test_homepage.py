@@ -15,3 +15,4 @@ class HomepageTestCase(SeleniumLiveTestCase):
         """
         self.get_page("/")
         self.should_see("This is a test.")
+        self.has_title("Test")
