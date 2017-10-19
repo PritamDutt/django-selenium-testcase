@@ -2,6 +2,8 @@
 
 from __future__ import absolute_import
 
+from urlparse import urljoin
+
 from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import NoSuchElementException
 
@@ -10,7 +12,7 @@ class NavigationTestMixin:
 
     def get_page(self, url):
         """ Navigate to the given url.  """
-        return self.browser.get("{}{}".format(self.live_server_url, url))
+        return self.browser.get(urljoin(self.live_server_url, url))
 
     def select_dropdown(self, field, value):
         """ Select a dropdown menu on the current page. """
@@ -38,7 +40,8 @@ class NavigationTestMixin:
 
     def at_page(self, url):
         """ Assert current page is not at the given url. """
-        self.assertEqual(self.live_server_url + url, self.browser.current_url)
+        self.assertEqual(
+            urljoin(self.live_server_url, url), self.browser.current_url)
 
     def not_at_page(self, url):
         """ Assert current page is at the given url. """
