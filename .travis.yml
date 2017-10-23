@@ -9,4 +9,3 @@ script:
   - make flake8
   - make test
   - make coverage
-  - make doc
