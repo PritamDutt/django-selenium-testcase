@@ -1,0 +1,5 @@
+include README.md
+include LICENSE
+recursive-include requirements.txt
+recursive-include selenium_testcase/templates *.html
+recursive-include selenium_testcase/tests/templates *.html
