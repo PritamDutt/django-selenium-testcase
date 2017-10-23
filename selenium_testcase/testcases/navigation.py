@@ -45,12 +45,13 @@ class NavigationTestMixin:
 
     def not_at_page(self, url):
         """ Assert current page is at the given url. """
-        self.assertNotEqual(url, self.browser.current_url)
+        self.assertNotEqual(
+            urljoin(self.live_server_url, url), self.browser.current_url)
 
-    def url_should_contain(self, url):
+    def url_should_contain(self, text):
         """ Assert if the current url DOES NOT contain the given string. """
-        self.assertIn(url, self.browser.current_url)
+        self.assertIn(text, self.browser.current_url)
 
-    def url_should_not_contain(self, url):
+    def url_should_not_contain(self, text):
         """ Assert if the current url DOES contain the given string. """
-        self.assertNotIn(url, self.browser.current_url)
+        self.assertNotIn(text, self.browser.current_url)
