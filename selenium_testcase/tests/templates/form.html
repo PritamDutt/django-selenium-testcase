@@ -1,0 +1,30 @@
+
+{% extends "base.html" %}
+
+{% block title %}
+Form Test
+{% endblock %}
+
+{% block content %}
+<p> This is form test. </p>
+
+<form method="get" name="myForm">
+  First name:<br>
+  <input type="text" name="firstname" value="Mickey">
+  <br>
+  Last name:<br>
+  <input type="text" name="lastname" value="Mouse">
+  <br>
+  <br>
+    <select name="cars">
+      <option value="volvo">Volvo</option>
+      <option value="saab">Saab</option>
+      <option value="fiat">Fiat</option>
+      <option value="audi">Audi</option>
+    </select>
+  <br>
+  <br>
+  <input type="submit" value="Submit">
+</form> 
+
+{% endblock %}

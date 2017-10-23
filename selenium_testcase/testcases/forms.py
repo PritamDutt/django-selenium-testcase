@@ -2,12 +2,37 @@
 
 from __future__ import absolute_import
 
+from selenium.webdriver.common.by import By
+
+from .utils import wait_for
+
 
 class FormTestMixin:
 
-    def set_input(self, field, value):
-        inputs = self.browser.find_elements_by_name(field)
-        for input in inputs:
-            if input.is_displayed():
-                input.send_keys(value)
-                return
+    # default search element
+    form_search_list = (
+        (By.ID, '{}',),
+        (By.NAME, '{}',),
+        (By.XPATH, '//form[@action="{}"]',),
+        (By.XPATH, '//form[@name="{}"]',),
+        (By.XPATH, '//form/*',),
+    )
+
+    @wait_for
+    def get_form(self, *args, **kwargs):
+        """ Return form element or None. """
+        return self.find_element(
+            self.form_search_list, *args, **kwargs)
+
+    input_search_list = (
+        (By.ID, '{}',),
+        (By.NAME, '{}',),
+    )
+
+    @wait_for
+    def set_input(self, field, value, **kwargs):
+        input = self.find_element(
+            self.input_search_list, field, **kwargs)
+        input.clear()
+        input.send_keys(value)
+        return input

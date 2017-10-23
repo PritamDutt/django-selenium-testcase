@@ -10,19 +10,19 @@ class AuthenticationTestMixin:
     login_url = "/accounts/login/"
     login_username_field = "username"
     login_password_field = "password"
-    login_button_name = "login"
+    login_button = "login"
 
     def login(self, username, password, next_url=None):
 
+        # grab the login page
         if next_url:
-            login_url = "{}?next={}".format(self.login_url, next_url)
+            self.get_page("{}?next={}".format(self.login_url, next_url))
         else:
-            login_url = self.login_url
+            self.get_page(self.login_url)
 
-        self.get_page(login_url)
         self.set_input(self.login_username_field, username)
         self.set_input(self.login_password_field, password)
-        self.click_button(self.login_button_name)
+        self.click_button(self.login_button)
 
     def create_users(self):
         """ Create an admin/admin and user/user test users. """
