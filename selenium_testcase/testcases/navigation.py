@@ -4,8 +4,9 @@ from __future__ import absolute_import
 
 from urlparse import urljoin
 
+from django.urls import reverse
 from selenium.webdriver.support.ui import Select
-from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.common.by import By
 
 
 class NavigationTestMixin:
@@ -14,29 +15,37 @@ class NavigationTestMixin:
         """ Navigate to the given url.  """
         return self.browser.get(urljoin(self.live_server_url, url))
 
+    def get_page_by_name(self, viewname, *args, **kwargs):
+        """ Navigate to the named url using django.urls.reverse(). """
+        return self.browser.get(
+            urljoin(self.live_server_url,
+                    reverse(viewname, *args, **kwargs)))
+
+    dropdown_search_list = (
+        (By.ID, '{}',),
+        (By.NAME, '{}',),
+    )
+
     def select_dropdown(self, field, value):
         """ Select a dropdown menu on the current page. """
-        input = Select(self.browser.find_element_by_name(field))
+        dropdown = self.find_element(self.dropdown_search_list, field)
+        input = Select(dropdown)
         input.select_by_visible_text(value)
 
-    def click_button(self, button_name):
-        """ Select a button or link with the given name.  """
-        for xpath in [x.format(button_name) for x in [
-                '//a[text()="{}"]',
-                '//input[@value="{}"]',
-                '//button[text()="{}"]',
-                '//button[text()[contains(.,"{}")]]',
-        ]]:
-            try:
-                buttons = self.browser.find_elements_by_xpath(xpath)
-                for button in buttons:
-                    if button.is_displayed():
-                        button.click()
-                        return
-            except NoSuchElementException:
-                pass
+    # default search for button
+    button_search_list = (
+        (By.ID, '{}',),
+        (By.NAME, '{}',),
+        (By.XPATH, '//a[text()="{}"]',),
+        (By.XPATH, '//input[@value="{}"]',),
+        (By.XPATH, '//button[text()="{}"]',),
+        (By.XPATH, '//button[text()[contains(.,"{}")]]',),
+    )
 
-        self.assertFalse("Button not found: '{}'".format(button_name))
+    def click_button(self, *args, **kwargs):
+        """ Select a button or link with the given name.  """
+        button = self.find_element(self.button_search_list, *args, **kwargs)
+        button.click()
 
     def at_page(self, url):
         """ Assert current page is not at the given url. """

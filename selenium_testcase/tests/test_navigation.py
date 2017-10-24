@@ -2,6 +2,7 @@
 
 from __future__ import absolute_import
 
+from selenium.common.exceptions import NoSuchElementException
 
 from ..testcases import SeleniumLiveTestCase
 
@@ -22,6 +23,11 @@ class NavigationTestCase(SeleniumLiveTestCase):
         self.get_page("/nav_1/nav_2/")
         self.should_see("This is nav 2.")
 
+    def test_get_page_by_name(self):
+        """ Test that you can reverse a named page. """
+        self.get_page_by_name("user_profile")
+        self.should_see("This is your profile, .")
+
     def test_get_bad_page(self):
         """ Test that /bogus/ is not found. """
         self.get_page("/bogus/")
@@ -37,5 +43,5 @@ class NavigationTestCase(SeleniumLiveTestCase):
         self.has_not_title("Navigation 2")
         self.title_does_not_contain("2")
         self.assertRaises(
-            AssertionError, self.click_button, "not_there_dude")
+            NoSuchElementException, self.click_button, "not_there_dude")
         self.not_at_page("/nav_2/")
