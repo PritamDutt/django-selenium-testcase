@@ -10,6 +10,7 @@ from django.core.urlresolvers import clear_url_caches
 
 from .authentication import AuthenticationTestMixin
 from .content import ContentTestMixin
+from .find import FindTestMixin
 from .forms import FormTestMixin
 from .navigation import NavigationTestMixin
 from .utils import reload_urlconf
@@ -26,11 +27,13 @@ BROWSER_CHOICES = {
     'safari': webdriver.Safari,
 }
 
+
 BROWSER = BROWSER_CHOICES[os.getenv('TEST_BROWSER', 'phantomjs').lower()]
 
 
 class SeleniumLiveTestCase(AuthenticationTestMixin,
                            ContentTestMixin,
+                           FindTestMixin,
                            FormTestMixin,
                            NavigationTestMixin,
                            StaticLiveServerTestCase):
