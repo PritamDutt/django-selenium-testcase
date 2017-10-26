@@ -2,14 +2,24 @@
 
 from __future__ import absolute_import
 
-from .utils import dom_contains, wait_for
+from .utils import wait_for
+
+from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.common.by import By
 
 
 class ContentTestMixin:
 
-    def should_see_immediately(self, text):
+    content_search_list = (
+        (By.XPATH,
+         '//*[contains(normalize-space(.), "{}") '
+         'and not(./*[contains(normalize-space(.), "{}")])]',),
+    )
+
+    def should_see_immediately(self, text, **kwargs):
         """ Assert that DOM contains the given text. """
-        self.assertTrue(dom_contains(self.browser, text))
+        self.find_element(
+            self.content_search_list, text, text, **kwargs)
 
     @wait_for
     def should_see(self, text):
@@ -18,7 +28,7 @@ class ContentTestMixin:
 
     def should_not_see(self, text):
         """ Wait for text to not appear before testing assertion. """
-        self.assertRaises(AssertionError, self.should_see, text)
+        self.assertRaises(NoSuchElementException, self.should_see, text)
 
     @wait_for
     def has_title(self, title):
