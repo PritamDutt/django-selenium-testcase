@@ -3,7 +3,6 @@ from __future__ import unicode_literals
 
 import sys
 
-from selenium.common.exceptions import StaleElementReferenceException
 from time import time, sleep
 
 from django.conf import settings
@@ -49,56 +48,6 @@ def wait_for(func):
                     raise
 
     return wrapped
-
-
-# Note: This function was copied from code in the aloe-webdriver
-# project (under the MIT license)
-# https://github.com/aloetesting/aloe_webdriver
-
-def string_literal(content):
-    """
-    Choose a string literal that can wrap our string.
-
-    If your string contains a ``\'`` the result will be wrapped in ``\"``.
-    If your string contains a ``\"`` the result will be wrapped in ``\'``.
-
-    Cannot currently handle strings which contain both ``\"`` and ``\'``.
-    """
-
-    if '"' in content and "'" in content:
-        # there is no way to escape string literal characters in XPath
-        raise ValueError("Cannot represent this string in XPath")
-    elif '"' in content:  # if it contains " wrap it in '
-        content = "'%s'" % content
-    else:  # wrap it in "
-        content = '"%s"' % content
-
-    return content
-
-
-# Note: This function was adapted from code in the aloe-webdriver
-# project (under the MIT license)
-# https://github.com/aloetesting/aloe_webdriver
-
-def dom_contains(browser, content):
-    """
-    Search for an element that contains the whole of the text we're looking
-    for in it or its subelements, but whose children do NOT contain that
-    text - otherwise matches <body> or <html> or other similarly useless
-    things.
-    """
-    for elem in browser.find_elements_by_xpath(str(
-            '//*[contains(normalize-space(.), {content}) '
-            'and not(./*[contains(normalize-space(.), {content})])]'
-            .format(content=string_literal(content)))):
-
-        try:
-            if elem.is_displayed():
-                return True
-        except StaleElementReferenceException:
-            pass
-
-    return False
 
 
 # Note: This function was adapted from
