@@ -17,8 +17,8 @@ class NavigationTestCase(SeleniumLiveTestCase):
     def test_get_page(self):
         """ Test that you can traverse the page tree. """
         self.get_page("/nav_1/")
-        self.has_title("Navigation 1")
-        self.title_contains("1")
+        self.title_should_be("Navigation 1")
+        self.title_should_contain("1")
         self.should_see("This is nav 1.")
         self.get_page("/nav_1/nav_2/")
         self.should_see("This is nav 2.")
@@ -40,8 +40,8 @@ class NavigationTestCase(SeleniumLiveTestCase):
         self.get_page("/nav_1/")
         self.should_not_see("This is nav 2.")
         self.url_should_not_contain("nav_2")
-        self.has_not_title("Navigation 2")
-        self.title_does_not_contain("2")
+        self.title_should_not_be("Navigation 2")
+        self.title_should_not_contain("2")
         self.assertRaises(
             NoSuchElementException, self.click_button, "not_there_dude")
         self.not_at_page("/nav_2/")

@@ -39,7 +39,7 @@ class HomepageTestCase(SeleniumLiveTestCase):
         """
         self.get_page("/")
         self.should_see("This is a test.")
-        self.has_title("Test")
+        self.title_should_be("Test")
 ```
 
 History

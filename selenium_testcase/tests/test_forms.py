@@ -16,7 +16,7 @@ class FormTestCase(SeleniumLiveTestCase):
         Test getting a form.
         """
         self.get_page("/")
-        self.has_title("Form Test")
+        self.title_should_be("Form Test")
         self.get_form()
         self.get_form("myForm")
 
@@ -25,7 +25,7 @@ class FormTestCase(SeleniumLiveTestCase):
         Test submitting a form with inputs and dropdown.
         """
         self.get_page("/")
-        self.has_title("Form Test")
+        self.title_should_be("Form Test")
         self.set_input("firstname", "Donald")
         self.set_input("lastname", "Duck")
         self.select_dropdown("cars", "Fiat")
