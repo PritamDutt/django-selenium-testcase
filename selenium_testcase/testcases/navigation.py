@@ -38,7 +38,7 @@ class NavigationTestMixin:
 
     def at_page(self, url):
         """ Assert current page is not at the given url. """
-        self.assertEqual(url, self.browser.current_url)
+        self.assertEqual(self.live_server_url + url, self.browser.current_url)
 
     def not_at_page(self, url):
         """ Assert current page is at the given url. """
