@@ -1,3 +1,18 @@
+1.1.0 (2017-10-27):
+
+    * Add wait_for to most methods involving content search.
+    * Add support for timeout kwarg in most methods.
+    * Split out get_dropdown and get_button methods to prevent side-effects.
+    * Add text_on_missing and png_on_missing flags to class to cause
+      visible text and base64 png url dumps with missing exception.
+    * Added support for SELENIUM_WINDOW_SIZE option.
+    * Add SELENIUM_TESTCASE_BASE_DIR to settings.
+    * Create htmlselenium directory with html trace.
+    * Replaced find_element with find_text in should_see_immediately().
+    * Added support for index in find_element().
+    * Added find_elements() method.
+
 1.0.0 (2017-10-26):
 
     * Initial public release of django-selenium-testcase.
+

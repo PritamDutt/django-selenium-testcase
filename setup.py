@@ -5,7 +5,7 @@ from setuptools import setup, find_packages
 # setup the project
 setup(
     name="django-selenium-testcase",
-    version="1.0.1rc3",
+    version="1.1.0",
     author="Nimbis Services, Inc.",
     author_email="info@nimbisservices.com",
     description="Selenium helper methods for Django live server testing.",
