@@ -1,3 +1,12 @@
+1.0.1 (2017-10-27):
+
+    * Add wait_for to most methods involving content search.
+    * Add support for delay kwarg in most methods.
+    * Split out get_dropdown and get_button methods to prevent side-effects.
+    * Add text_on_missing and png_on_missing flags to class to cause
+      visible text and base64 png url dumps with missing exception.
+
 1.0.0 (2017-10-26):
 
     * Initial public release of django-selenium-testcase.
+
