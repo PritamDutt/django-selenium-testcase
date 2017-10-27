@@ -2,21 +2,27 @@
 
 from __future__ import absolute_import
 
+from django.conf import settings
+
 from selenium.common.exceptions import NoSuchElementException
 
 
 class FindTestMixin:
 
     # exit to debugger on missing element
-    pdb_on_missing = False
+    pdb_on_missing = getattr(
+        settings, 'SELENIUM_TESTCASE_PDB_ON_MISSING', False)
+
+    # dump page text on missing element
+    text_on_missing = getattr(
+        settings, 'SELENIUM_TESTCASE_TEXT_ON_MISSING', False)
+
+    # dump png image uri on missing element
+    png_on_missing = getattr(
+        settings, 'SELENIUM_TESTCASE_PNG_ON_MISSING', False)
 
     def find_element(self, search_list, *args, **kwargs):
         """ Traverse a search list looking for elements. """
-
-        # dump a screen shot to a file
-        screendump = kwargs.get('screendump', None)
-        if screendump:
-            self.browser.get_screenshot_as_file(screendump)
 
         # construct error message string just in case
         message = "Unable to find element, tried:\n"
@@ -40,6 +46,14 @@ class FindTestMixin:
                 pass
             else:
                 return element
+
+        # dump raw page text to exception message
+        if kwargs.get('text', self.text_on_missing):
+            message += "---\n" + self.get_visible_text() + "\n---\n"
+
+        # dump image data link to exception message
+        if kwargs.get('png', self.png_on_missing):
+            message += "---\n" + self.get_image_uri() + "\n---\n"
 
         # exit to pdb if flag is set
         if kwargs.get('pdb', self.pdb_on_missing):
