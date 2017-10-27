@@ -28,9 +28,15 @@ class NavigationTestMixin:
         (By.NAME, '{}',),
     )
 
-    def select_dropdown(self, field, value):
+    @wait_for
+    def get_dropdown(self, field, *kwargs):
+        """ Find a dropdown menu on the current page. """
+        return self.find_element(
+            self.dropdown_search_list, field, *kwargs)
+
+    def select_dropdown(self, field, value, *kwargs):
         """ Select a dropdown menu on the current page. """
-        dropdown = self.find_element(self.dropdown_search_list, field)
+        dropdown = self.get_dropdown(field, *kwargs)
         input = Select(dropdown)
         input.select_by_visible_text(value)
 
@@ -40,13 +46,20 @@ class NavigationTestMixin:
         (By.NAME, '{}',),
         (By.XPATH, '//a[text()="{}"]',),
         (By.XPATH, '//input[@value="{}"]',),
+        (By.XPATH, '//input[@type="{}"]', ),
         (By.XPATH, '//button[text()="{}"]',),
         (By.XPATH, '//button[text()[contains(.,"{}")]]',),
     )
 
-    def click_button(self, *args, **kwargs):
+    @wait_for
+    def get_button(self, value, *args, **kwargs):
         """ Select a button or link with the given name.  """
-        button = self.find_element(self.button_search_list, *args, **kwargs)
+        return self.find_element(
+            self.button_search_list, value, *args, **kwargs)
+
+    def click_button(self, value, *args, **kwargs):
+        """ Select a button or link with the given name.  """
+        button = self.get_button(value, *args, **kwargs)
         button.click()
 
     @wait_for
