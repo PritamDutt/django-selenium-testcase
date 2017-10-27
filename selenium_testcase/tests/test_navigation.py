@@ -36,12 +36,13 @@ class NavigationTestCase(SeleniumLiveTestCase):
             "The requested URL /bogus/ was not found on this server.")
 
     def test_missing_content_with_retry(self):
-        """ Test retry for missing content, LONG RETRIES! """
+        """ Test retry for missing content """
         self.get_page("/nav_1/")
-        self.should_not_see("This is nav 2.")
-        self.url_should_not_contain("nav_2")
-        self.title_should_not_be("Navigation 2")
-        self.title_should_not_contain("2")
+        self.should_not_see("This is nav 2.", timeout=1)
+        self.url_should_not_contain("nav_2", timeout=1)
+        self.title_should_not_be("Navigation 2", timeout=1)
+        self.title_should_not_contain("2", timeout=1)
         self.assertRaises(
-            NoSuchElementException, self.click_button, "not_there_dude")
-        self.not_at_page("/nav_2/")
+            NoSuchElementException, self.click_button,
+            "not_there_dude", timeout=1)
+        self.not_at_page("/nav_2/", timeout=1)
