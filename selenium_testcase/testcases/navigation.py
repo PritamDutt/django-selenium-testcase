@@ -8,6 +8,8 @@ from django.urls import reverse
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.by import By
 
+from .utils import wait_for
+
 
 class NavigationTestMixin:
 
@@ -47,20 +49,24 @@ class NavigationTestMixin:
         button = self.find_element(self.button_search_list, *args, **kwargs)
         button.click()
 
-    def at_page(self, url):
+    @wait_for
+    def at_page(self, url, **kwargs):
         """ Assert current page is not at the given url. """
         self.assertEqual(
             urljoin(self.live_server_url, url), self.browser.current_url)
 
-    def not_at_page(self, url):
+    @wait_for
+    def not_at_page(self, url, **kwargs):
         """ Assert current page is at the given url. """
         self.assertNotEqual(
             urljoin(self.live_server_url, url), self.browser.current_url)
 
-    def url_should_contain(self, text):
+    @wait_for
+    def url_should_contain(self, text, **kwargs):
         """ Assert if the current url DOES NOT contain the given string. """
         self.assertIn(text, self.browser.current_url)
 
-    def url_should_not_contain(self, text):
+    @wait_for
+    def url_should_not_contain(self, text, **kwargs):
         """ Assert if the current url DOES contain the given string. """
         self.assertNotIn(text, self.browser.current_url)
