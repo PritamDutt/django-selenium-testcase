@@ -1,0 +1,14 @@
+{% block testcase %}
+<div class="testcase_title">
+    <h2> {% block tescase_title %}ERROR: {{ id }}{% endblock %}</h2>
+</div>
+<div class="testcase">
+  {% block testcase_content %}
+  <p> <code>{{ filename }}[{{ lineno }}].{{ index }}</code>
+  <br> <code>{{ code_context }}</code></p>
+  <p> Description:<br>{{ description }}</p>
+  <p> Visible Text:<br><pre>{{ text }}</pre></p>
+  {% endblock %}
+  <p> <img src="{{ png }}"/></p>
+</div>
+{% endblock %}
