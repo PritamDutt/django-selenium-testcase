@@ -102,8 +102,17 @@ class DebugTestMixin:
 
         if self.selenium_logging:
 
+            path = os.path.join(self.selenium_base_dir, 'htmlselenium')
+            file = os.path.join(path, self.id() + '.html')
+
+            # try to make the directory
+            # ignore error from path exists
+            try:
+                os.makedirs(path)
+            except OSError:
+                pass
+
             # open the file
-            file = os.path.join(self.selenium_base_dir, self.id() + '.html')
             self._selenium_log_file = open(file, "w")
 
             # render the header
@@ -159,7 +168,7 @@ class DebugTestMixin:
                     'text': self.get_visible_text()})
 
             # write it to the file
-            self._selenium_log_file.write(html)
+            self._selenium_log_file.write(html.encode('utf8'))
 
     def render_entry_log(self):
         """
