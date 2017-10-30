@@ -102,10 +102,13 @@ class DebugTestMixin:
 
         if self.selenium_logging:
 
+            # create destination path and HTML file
             path = os.path.join(self.selenium_base_dir, 'htmlselenium')
-            file = os.path.join(path, self.id() + '.html')
+            browser = os.getenv('TEST_BROWSER', 'phantomjs').lower()
+            name = "{}.{}.html".format(self.id(), browser)
+            file = os.path.join(path, name)
 
-            # try to make the directory
+            # try to make the destination path
             # ignore error from path exists
             try:
                 os.makedirs(path)
