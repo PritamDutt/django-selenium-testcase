@@ -8,6 +8,11 @@ import inspect
 from django.conf import settings
 from django.template.loader import render_to_string
 
+from ..settings import (
+    TEST_BROWSER,
+    SELENIUM_LOGGING,
+)
+
 
 class DebugTestMixin:
 
@@ -72,7 +77,7 @@ class DebugTestMixin:
     selenium_base_dir = getattr(settings, 'SELENIUM_TESTCASE_BASE_DIR', '.')
 
     # log to an HTML file for all tests, if true
-    selenium_logging = getattr(settings, 'SELENIUM_TESTCASE_LOGGING', False)
+    selenium_logging = SELENIUM_LOGGING
 
     # templates used for log file generation
     selenium_header_template = getattr(
@@ -104,8 +109,7 @@ class DebugTestMixin:
 
             # create destination path and HTML file
             path = os.path.join(self.selenium_base_dir, 'htmlselenium')
-            browser = os.getenv('TEST_BROWSER', 'phantomjs').lower()
-            name = "{}.{}.html".format(self.id(), browser)
+            name = "{}.{}.html".format(self.id(), TEST_BROWSER)
             file = os.path.join(path, name)
 
             # try to make the destination path

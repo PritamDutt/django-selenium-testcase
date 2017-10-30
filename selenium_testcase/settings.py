@@ -1,0 +1,45 @@
+# -*- coding: utf-8 -*-
+
+from __future__ import absolute_import
+
+import os
+
+from django.conf import settings
+from selenium import webdriver
+
+# choose the test browser class from this list
+BROWSER_CHOICES = {
+    'android': webdriver.Android,
+    'chrome': webdriver.Chrome,
+    'edge': webdriver.Edge,
+    'firefox': webdriver.Firefox,
+    'ie': webdriver.Ie,
+    'opera': webdriver.Opera,
+    'phantomjs': webdriver.PhantomJS,
+    'safari': webdriver.Safari,
+}
+
+# exit to debugger on missing element
+PDB_ON_MISSING = os.getenv(
+    'PDB_ON_MISSING',
+    getattr(settings, 'SELENIUM_TESTCASE_PDB_ON_MISSING', False))
+
+# dump page text on missing element
+TEXT_ON_MISSING = os.getenv(
+    'TEXT_ON_MISSING',
+    getattr(settings, 'SELENIUM_TESTCASE_TEXT_ON_MISSING', False))
+
+# dump png image uri on missing element
+PNG_ON_MISSING = os.getenv(
+    'PNG_ON_MISSING',
+    getattr(settings, 'SELENIUM_TESTCASE_PNG_ON_MISSING', False))
+
+TEST_BROWSER = os.getenv(
+    'TEST_BROWSER',
+    getattr(settings, 'SELENIUM_TEST_BROWSER', 'phantomjs')).lower()
+
+TEST_DRIVER = BROWSER_CHOICES[TEST_BROWSER]
+
+# selenium logging
+SELENIUM_LOGGING = os.getenv(
+    'SELENIUM_LOGGING', getattr(settings, 'SELENIUM_TESTCASE_LOGGING', False))

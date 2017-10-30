@@ -2,11 +2,10 @@
 
 from __future__ import absolute_import
 
-import os
-from selenium import webdriver
-
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.core.urlresolvers import clear_url_caches
+
+from ..settings import TEST_DRIVER
 
 from .authentication import AuthenticationTestMixin
 from .content import ContentTestMixin
@@ -15,21 +14,9 @@ from .find import FindTestMixin
 from .forms import FormTestMixin
 from .navigation import NavigationTestMixin
 from .utils import reload_urlconf
+
+# this is absolute due to reload
 from selenium_testcase import urls
-
-BROWSER_CHOICES = {
-    'android': webdriver.Android,
-    'chrome': webdriver.Chrome,
-    'edge': webdriver.Edge,
-    'firefox': webdriver.Firefox,
-    'ie': webdriver.Ie,
-    'opera': webdriver.Opera,
-    'phantomjs': webdriver.PhantomJS,
-    'safari': webdriver.Safari,
-}
-
-
-BROWSER = BROWSER_CHOICES[os.getenv('TEST_BROWSER', 'phantomjs').lower()]
 
 
 class SeleniumLiveTestCase(AuthenticationTestMixin,
@@ -69,7 +56,7 @@ class SeleniumLiveTestCase(AuthenticationTestMixin,
         super(SeleniumLiveTestCase, cls).setUpClass()
 
         # launch the browser session
-        cls.browser = BROWSER()
+        cls.browser = TEST_DRIVER()
 
         # reload selenium_testcase.urls to fetch the new setting
         # clear url cache, and reload urlconf
