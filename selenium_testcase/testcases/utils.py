@@ -23,6 +23,9 @@ def wait_for(func):
 
     def wrapped(self, *args, **kwargs):
 
+        # render the log file containing a screen shot on entry
+        self.render_entry_log()
+
         # allow wait_for to be overridden by class or settings
         TIMEOUT = getattr(
             self, 'selenium_timeout',
@@ -53,6 +56,8 @@ def wait_for(func):
                     sleep(CHECK_EVERY)
                     continue
                 else:
+                    # render exit template on error
+                    self.render_exit_log()
                     raise
 
     return wrapped

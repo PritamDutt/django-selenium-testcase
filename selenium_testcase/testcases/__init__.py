@@ -10,6 +10,7 @@ from django.core.urlresolvers import clear_url_caches
 
 from .authentication import AuthenticationTestMixin
 from .content import ContentTestMixin
+from .debug import DebugTestMixin
 from .find import FindTestMixin
 from .forms import FormTestMixin
 from .navigation import NavigationTestMixin
@@ -33,6 +34,7 @@ BROWSER = BROWSER_CHOICES[os.getenv('TEST_BROWSER', 'phantomjs').lower()]
 
 class SeleniumLiveTestCase(AuthenticationTestMixin,
                            ContentTestMixin,
+                           DebugTestMixin,
                            FindTestMixin,
                            FormTestMixin,
                            NavigationTestMixin,
@@ -74,6 +76,11 @@ class SeleniumLiveTestCase(AuthenticationTestMixin,
         reload(urls)
         clear_url_caches()
         reload_urlconf()
+
+    def __init__(self, *args, **kwargs):
+        super(SeleniumLiveTestCase, self).__init__(*args, **kwargs)
+        self.addCleanup(DebugTestMixin.render_footer_log, self)
+        self.render_header_log()
 
     # Tear down the Selenium web browser
     @classmethod
