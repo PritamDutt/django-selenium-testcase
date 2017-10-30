@@ -18,6 +18,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # path for selenium generated files
 SELENIUM_TESTCASE_BASE_DIR = BASE_DIR
 
+# turn on all debug features except for PDB
+SELENIUM_TESTCASE_LOGGING = True
+SELENIUM_TESTCASE_PNG_ON_MISSING = True
+SELENIUM_TESTCASE_TEXT_ON_MISSING = True
+SELENIUM_TESTCASE_PDB_ON_MISSING = False
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
