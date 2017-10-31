@@ -15,7 +15,7 @@ class FormTestMixin:
         (By.NAME, '{}',),
         (By.XPATH, '//form[@action="{}"]',),
         (By.XPATH, '//form[@name="{}"]',),
-        (By.XPATH, '//form/*',),
+        (By.XPATH, '//form',),
     )
 
     @wait_for
@@ -30,9 +30,14 @@ class FormTestMixin:
     )
 
     @wait_for
-    def set_input(self, field, value, **kwargs):
-        input = self.find_element(
+    def get_input(self, field, **kwargs):
+        """ Return matching input field. """
+        return self.find_element(
             self.input_search_list, field, **kwargs)
-        input.clear()
-        input.send_keys(value)
-        return input
+
+    def set_input(self, field, value, **kwargs):
+        """ Clear the field and enter value. """
+        element = self.get_input(field, **kwargs)
+        element.clear()
+        element.send_keys(value)
+        return element
