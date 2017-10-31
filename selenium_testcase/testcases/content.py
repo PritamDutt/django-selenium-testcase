@@ -14,11 +14,12 @@ class ContentTestMixin:
         (By.XPATH,
          '//*[contains(normalize-space(.), "{}") '
          'and not(./*[contains(normalize-space(.), "{}")])]',),
+        (By.XPATH, '//*[contains(text(), "{}")]',),
     )
 
     def should_see_immediately(self, text, **kwargs):
         """ Assert that DOM contains the given text. """
-        self.find_element(
+        return self.find_element(
             self.content_search_list, text, text, **kwargs)
 
     @wait_for
