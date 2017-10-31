@@ -23,7 +23,17 @@ class FindTestMixin:
     png_on_missing = PNG_ON_MISSING
 
     def find_element(self, search_list, *args, **kwargs):
-        """ Traverse a search list looking for elements. """
+        """ Return a single element by optional index. """
+        index = kwargs.get('index', 0)
+        kwargs['count'] = index + 1
+        elements = self.find_elements(search_list, *args, **kwargs)
+        return elements[index]
+
+    def find_elements(self, search_list, *args, **kwargs):
+        """ Traverse a search list looking for count visible elements. """
+
+        # find this many visible elements at a minimum
+        count = kwargs.get('count', 1)
 
         # construct error message string just in case
         message = "Unable to find element, tried:\n"
@@ -42,11 +52,18 @@ class FindTestMixin:
 
             # try each of the patterns in order
             try:
-                element = self.browser.find_element(method, value)
+                elements = self.browser.find_elements(method, value)
             except NoSuchElementException:
                 pass
             else:
-                return element
+                # filter down to visible elements
+                visible = [e for e in elements if e.is_displayed()]
+
+                # try next if we don't have enough visible elements
+                if len(visible) < count:
+                    continue
+                else:
+                    return visible
 
         # dump raw page text to exception message
         if kwargs.get('text', self.text_on_missing):
