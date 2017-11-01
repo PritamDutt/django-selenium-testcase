@@ -5,22 +5,13 @@ from __future__ import absolute_import
 from .utils import wait_for
 
 from selenium.common.exceptions import NoSuchElementException
-from selenium.webdriver.common.by import By
 
 
 class ContentTestMixin:
 
-    content_search_list = (
-        (By.XPATH,
-         '//*[contains(normalize-space(.), "{}") '
-         'and not(./*[contains(normalize-space(.), "{}")])]',),
-        (By.XPATH, '//*[contains(text(), "{}")]',),
-    )
-
     def should_see_immediately(self, text, **kwargs):
         """ Assert that DOM contains the given text. """
-        return self.find_element(
-            self.content_search_list, text, text, **kwargs)
+        return self.find_text(text, **kwargs)
 
     @wait_for
     def should_see(self, text, **kwargs):
