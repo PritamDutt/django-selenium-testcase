@@ -1,15 +1,18 @@
 sudo: false
 language: python
 addons:
-  chrome: stable
+  chrome: beta
   firefox: latest
 python:
   - "2.7"
 env:
   matrix:
-    - TEST_BROWSER=phantomjs
-    - TEST_BROWSER=firefox
-    - TEST_BROWSER=chrome
+    - TEST_BROWSER=phantomjs SELENIUM_WINDOW_SIZE=1024x768
+    - TEST_BROWSER=firefox SELENIUM_WINDOW_SIZE=1024x768
+    - TEST_BROWSER=chrome SELENIUM_WINDOW_SIZE=1024x768
+    - TEST_BROWSER=phantomjs SELENIUM_WINDOW_SIZE=640x480
+    - TEST_BROWSER=firefox SELENIUM_WINDOW_SIZE=640x480
+    - TEST_BROWSER=chrome SELENIUM_WINDOW_SIZE=640x480
   global:
     - DISPLAY=:99.0
 install:
@@ -21,7 +24,7 @@ before_script:
   - tar -xzf geckodriver-v0.19.0-linux64.tar.gz -C geckodriver
   - export PATH=$PATH:$PWD/geckodriver
   # install chromedriver
-  - wget http://chromedriver.storage.googleapis.com/2.30/chromedriver_linux64.zip
+  - wget https://chromedriver.storage.googleapis.com/2.33/chromedriver_linux64.zip
   - mkdir chromedriver
   - unzip chromedriver_linux64.zip -d chromedriver
   - export PATH=$PATH:$PWD/chromedriver

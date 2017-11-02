@@ -43,3 +43,8 @@ TEST_DRIVER = BROWSER_CHOICES[TEST_BROWSER]
 # selenium logging
 SELENIUM_LOGGING = os.getenv(
     'SELENIUM_LOGGING', getattr(settings, 'SELENIUM_TESTCASE_LOGGING', False))
+
+# set the window size to 1024x768
+SELENIUM_WINDOW_SIZE = os.getenv(
+    'SELENIUM_WINDOW_SIZE',
+    getattr(settings, 'SELENIUM_WINDOW_SIZE', "1024x768"))
