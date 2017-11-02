@@ -11,6 +11,7 @@ from django.template.loader import render_to_string
 from ..settings import (
     TEST_BROWSER,
     SELENIUM_LOGGING,
+    SELENIUM_WINDOW_SIZE,
 )
 
 
@@ -109,7 +110,8 @@ class DebugTestMixin:
 
             # create destination path and HTML file
             path = os.path.join(self.selenium_base_dir, 'htmlselenium')
-            name = "{}.{}.html".format(self.id(), TEST_BROWSER)
+            name = "{}.{}.{}.html".format(
+                self.id(), TEST_BROWSER, SELENIUM_WINDOW_SIZE)
             file = os.path.join(path, name)
 
             # try to make the destination path

@@ -6,6 +6,7 @@ from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.core.urlresolvers import clear_url_caches
 
 from ..settings import TEST_DRIVER
+from ..settings import SELENIUM_WINDOW_SIZE
 
 from .authentication import AuthenticationTestMixin
 from .content import ContentTestMixin
@@ -57,6 +58,10 @@ class SeleniumLiveTestCase(AuthenticationTestMixin,
 
         # launch the browser session
         cls.browser = TEST_DRIVER()
+
+        # configure the window size
+        (width, height) = SELENIUM_WINDOW_SIZE.lower().split('x')
+        cls.browser.set_window_size(int(width), int(height))
 
         # reload selenium_testcase.urls to fetch the new setting
         # clear url cache, and reload urlconf
