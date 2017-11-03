@@ -20,3 +20,4 @@ class HomepageTestCase(SeleniumLiveTestCase):
         self.should_see("is a test.")
         self.should_see("is a")
         self.should_see("The quick brown")
+        self.should_see("This is not on this page!")

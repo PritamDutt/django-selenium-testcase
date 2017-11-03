@@ -32,7 +32,7 @@ class IndexingTestCase(SeleniumLiveTestCase):
         """ Test button index=1 """
         self.get_page("/")
         self.title_should_be("Indexing Test")
-        self.click_button('mybutton', index=1)
+        self.click_button('mybutton', index=99)
         self.title_should_be("Navigation 2")
 
     def test_missing_button(self, index=1, timeout=1):
