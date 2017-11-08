@@ -8,6 +8,8 @@ from django.urls import reverse
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.by import By
 
+from .utils import wait_for
+
 
 class NavigationTestMixin:
 
@@ -26,9 +28,15 @@ class NavigationTestMixin:
         (By.NAME, '{}',),
     )
 
-    def select_dropdown(self, field, value):
+    @wait_for
+    def get_dropdown(self, field, *kwargs):
+        """ Find a dropdown menu on the current page. """
+        return self.find_element(
+            self.dropdown_search_list, field, *kwargs)
+
+    def select_dropdown(self, field, value, *kwargs):
         """ Select a dropdown menu on the current page. """
-        dropdown = self.find_element(self.dropdown_search_list, field)
+        dropdown = self.get_dropdown(field, *kwargs)
         input = Select(dropdown)
         input.select_by_visible_text(value)
 
@@ -38,29 +46,40 @@ class NavigationTestMixin:
         (By.NAME, '{}',),
         (By.XPATH, '//a[text()="{}"]',),
         (By.XPATH, '//input[@value="{}"]',),
+        (By.XPATH, '//input[@type="{}"]', ),
         (By.XPATH, '//button[text()="{}"]',),
         (By.XPATH, '//button[text()[contains(.,"{}")]]',),
     )
 
-    def click_button(self, *args, **kwargs):
+    @wait_for
+    def get_button(self, value, *args, **kwargs):
         """ Select a button or link with the given name.  """
-        button = self.find_element(self.button_search_list, *args, **kwargs)
+        return self.find_element(
+            self.button_search_list, value, *args, **kwargs)
+
+    def click_button(self, value, *args, **kwargs):
+        """ Select a button or link with the given name.  """
+        button = self.get_button(value, *args, **kwargs)
         button.click()
 
-    def at_page(self, url):
+    @wait_for
+    def at_page(self, url, **kwargs):
         """ Assert current page is not at the given url. """
         self.assertEqual(
             urljoin(self.live_server_url, url), self.browser.current_url)
 
-    def not_at_page(self, url):
+    @wait_for
+    def not_at_page(self, url, **kwargs):
         """ Assert current page is at the given url. """
         self.assertNotEqual(
             urljoin(self.live_server_url, url), self.browser.current_url)
 
-    def url_should_contain(self, text):
+    @wait_for
+    def url_should_contain(self, text, **kwargs):
         """ Assert if the current url DOES NOT contain the given string. """
         self.assertIn(text, self.browser.current_url)
 
-    def url_should_not_contain(self, text):
+    @wait_for
+    def url_should_not_contain(self, text, **kwargs):
         """ Assert if the current url DOES contain the given string. """
         self.assertNotIn(text, self.browser.current_url)

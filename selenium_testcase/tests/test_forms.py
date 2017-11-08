@@ -38,6 +38,8 @@ class FormTestCase(SeleniumLiveTestCase):
 
 class MissingFormTestCase(SeleniumLiveTestCase):
 
+    selenium_timeout = 1
+
     def test_missing_form(self):
         """ Look for a form that does not exist. """
         self.get_page("/")

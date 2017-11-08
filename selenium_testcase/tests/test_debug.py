@@ -5,11 +5,11 @@ from __future__ import absolute_import
 from ..testcases import SeleniumLiveTestCase
 
 
-class HomepageTestCase(SeleniumLiveTestCase):
+class DebugTestCase(SeleniumLiveTestCase):
 
     test_templates = [(r'', 'test.html')]
 
-    def test_homepage(self):
+    def test_debug(self):
         """
         Test a simple home page.
         """

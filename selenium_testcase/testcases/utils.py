@@ -7,12 +7,8 @@ from time import time, sleep
 
 from django.conf import settings
 
-# allow wait_for to be overridden by settings
-TIMEOUT = getattr(settings, 'SELENIUM_TESTCASE_TIMEOUT', 15)
-CHECK_EVERY = getattr(settings, 'SELENIUM_TESTCASE_CHECK_EVERY', 0.2)
 
-
-# Note: This function was copied from code in the aloe-webdriver
+# Note: This function was adapted from code in the aloe-webdriver
 # project (under the MIT license)
 # https://github.com/aloetesting/aloe_webdriver
 
@@ -25,14 +21,29 @@ def wait_for(func):
     for (default 15).
     """
 
-    def wrapped(*args, **kwargs):
+    def wrapped(self, *args, **kwargs):
+
+        # render the log file containing a screen shot on entry
+        self.render_entry_log()
+
+        # allow wait_for to be overridden by class or settings
+        TIMEOUT = getattr(
+            self, 'selenium_timeout',
+            getattr(settings, 'SELENIUM_TESTCASE_TIMEOUT', 15))
+
+        # allow loop delay to be overridden by class or settings
+        CHECK_EVERY = getattr(
+            self, 'selenium_check_every',
+            getattr(settings, 'SELENIUM_TESTCASE_CHECK_EVERY', 0.2))
+
+        # adjust timeout with a timeout=<integer seconds>
         timeout = kwargs.pop('timeout', TIMEOUT)
 
         start = None
 
         while True:
             try:
-                return func(*args, **kwargs)
+                return func(self, *args, **kwargs)
             except AssertionError:
                 # The function took some time to test the assertion, however,
                 # the result might correspond to the state of the world at any
@@ -45,6 +56,8 @@ def wait_for(func):
                     sleep(CHECK_EVERY)
                     continue
                 else:
+                    # render exit template on error
+                    self.render_exit_log()
                     raise
 
     return wrapped

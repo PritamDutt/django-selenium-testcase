@@ -1,6 +1,7 @@
 *.sqlite3
 .coverage
 htmlcov
+htmlselenium
 *driver.log
 *.pyc
 dist
