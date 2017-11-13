@@ -25,9 +25,6 @@ def wait_for(func):
 
     def wrapped(self, *args, **kwargs):
 
-        # render the log file containing a screen shot on entry
-        self.render_entry_log()
-
         # allow wait_for to be overridden by class or settings
         TIMEOUT = getattr(
             self, 'selenium_timeout',
@@ -45,6 +42,9 @@ def wait_for(func):
 
         while True:
             try:
+                # render the log file containing a screen shot on entry
+                self.render_entry_log()
+                # call the function
                 return func(self, *args, **kwargs)
             except (AssertionError, WebDriverException) as e:
                 # The function took some time to test the assertion, however,
