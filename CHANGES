@@ -1,3 +1,7 @@
+1.1.1 (2017-11-13):
+
+    * The @wait_for decorator should retry when WebDriverException is raised.
+
 1.1.0 (2017-10-27):
 
     * Add wait_for to most methods involving content search.
@@ -15,4 +19,3 @@
 1.0.0 (2017-10-26):
 
     * Initial public release of django-selenium-testcase.
-
