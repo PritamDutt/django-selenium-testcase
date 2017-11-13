@@ -7,6 +7,8 @@ from time import time, sleep
 
 from django.conf import settings
 
+from selenium.common.exceptions import WebDriverException
+
 
 # Note: This function was adapted from code in the aloe-webdriver
 # project (under the MIT license)
@@ -44,7 +46,7 @@ def wait_for(func):
         while True:
             try:
                 return func(self, *args, **kwargs)
-            except AssertionError:
+            except (AssertionError, WebDriverException) as e:
                 # The function took some time to test the assertion, however,
                 # the result might correspond to the state of the world at any
                 # point in time, perhaps earlier than the timeout. Therefore,
@@ -58,7 +60,7 @@ def wait_for(func):
                 else:
                     # render exit template on error
                     self.render_exit_log()
-                    raise
+                    raise e
 
     return wrapped
 
