@@ -1,3 +1,8 @@
+1.1.2 (2017-11-14):
+
+    * Fix @wait_for to not fail with an exception when trying to log the page
+      content before the page is fully loaded.
+
 1.1.1 (2017-11-13):
 
     * The @wait_for decorator should retry when WebDriverException is raised.
