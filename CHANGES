@@ -1,3 +1,8 @@
+1.1.3 (2017-11-15):
+
+    * Fix login() to not cause race conditions when trying to get_page before
+      the login has completed.
+
 1.1.2 (2017-11-14):
 
     * Fix @wait_for to not fail with an exception when trying to log the page
