@@ -6,13 +6,16 @@ import os
 
 from django.conf import settings
 from selenium import webdriver
+from .testcases import headless
 
 # choose the test browser class from this list
 BROWSER_CHOICES = {
     'android': webdriver.Android,
     'chrome': webdriver.Chrome,
+    'chrome-headless': headless.Chrome,
     'edge': webdriver.Edge,
     'firefox': webdriver.Firefox,
+    'firefox-headless': headless.Firefox,
     'ie': webdriver.Ie,
     'opera': webdriver.Opera,
     'phantomjs': webdriver.PhantomJS,
