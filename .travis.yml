@@ -1,10 +1,10 @@
-sudo: false
+sudo: required
 language: python
-addons:
-  chrome: beta
-  firefox: latest
 python:
   - "2.7"
+addons:
+  chrome: stable
+  firefox: latest
 env:
   matrix:
     - TEST_BROWSER=firefox SELENIUM_WINDOW_SIZE=1024x768
