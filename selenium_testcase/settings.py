@@ -18,7 +18,6 @@ BROWSER_CHOICES = {
     'firefox-headless': headless.Firefox,
     'ie': webdriver.Ie,
     'opera': webdriver.Opera,
-    'phantomjs': webdriver.PhantomJS,
     'safari': webdriver.Safari,
 }
 
@@ -39,7 +38,7 @@ PNG_ON_MISSING = os.getenv(
 
 TEST_BROWSER = os.getenv(
     'TEST_BROWSER',
-    getattr(settings, 'SELENIUM_TEST_BROWSER', 'phantomjs')).lower()
+    getattr(settings, 'SELENIUM_TEST_BROWSER', 'chrome-headless')).lower()
 
 TEST_DRIVER = BROWSER_CHOICES[TEST_BROWSER]
 
