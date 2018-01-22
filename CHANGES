@@ -1,3 +1,8 @@
+1.2.0 (2018-01-22):
+
+    * Remove deprecated phantomjs.  The new default is chrome-headless and
+      a firefox-headless is also available.
+
 1.1.3 (2017-11-15):
 
     * Fix login() to not cause race conditions when trying to get_page before
