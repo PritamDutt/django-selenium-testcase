@@ -1,3 +1,9 @@
+1.2.1 (2018-01-25):
+
+    * Run chrome and chrome-headless tests using the "--no-sandbox" option,
+      so that testing may be done in containerized Travis builds without
+      problem.
+
 1.2.0 (2018-01-22):
 
     * Remove deprecated phantomjs.  The new default is chrome-headless and
