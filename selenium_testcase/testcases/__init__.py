@@ -5,7 +5,9 @@ from __future__ import absolute_import
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.core.urlresolvers import clear_url_caches
 
-from ..settings import TEST_DRIVER
+from selenium.webdriver.chrome.options import Options
+
+from ..settings import TEST_DRIVER, TEST_BROWSER
 from ..settings import SELENIUM_WINDOW_SIZE
 
 from .authentication import AuthenticationTestMixin
@@ -56,8 +58,17 @@ class SeleniumLiveTestCase(AuthenticationTestMixin,
             'SELENIUM_TESTCASE_TEMPLATES': cls.test_templates}
         super(SeleniumLiveTestCase, cls).setUpClass()
 
-        # launch the browser session
-        cls.browser = TEST_DRIVER()
+        # Launch the browser session. If the browser is non-headless Chrome,
+        # launch it with the "--no-sandbox" option to prevent problems when
+        # running in a containerized Travis CI build.
+        # https://docs.travis-ci.com/user/chrome#Sandboxing
+        # https://github.com/travis-ci/travis-ci/issues/8836
+        if TEST_BROWSER == 'chrome':
+            options = Options()
+            options.add_argument('--no-sandbox')
+            cls.browser = TEST_DRIVER(chrome_options=options)
+        else:
+            cls.browser = TEST_DRIVER()
 
         # configure the window size
         (width, height) = SELENIUM_WINDOW_SIZE.lower().split('x')
