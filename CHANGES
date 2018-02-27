@@ -1,3 +1,8 @@
+1.2.2 (2018-02-27):
+
+    * Add wait_for to click_button.  It can return WebDriverException in some
+      cases where the button is not ready for clicks.
+
 1.2.1 (2018-01-25):
 
     * Run chrome and chrome-headless tests using the "--no-sandbox" option,
