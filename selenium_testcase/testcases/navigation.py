@@ -57,6 +57,7 @@ class NavigationTestMixin:
         return self.find_element(
             self.button_search_list, value, *args, **kwargs)
 
+    @wait_for
     def click_button(self, value, *args, **kwargs):
         """ Select a button or link with the given name.  """
         button = self.get_button(value, *args, **kwargs)
