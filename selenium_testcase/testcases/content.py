@@ -42,3 +42,13 @@ class ContentTestMixin:
         """ Assert that page title does not contain text. """
         self.assertRaises(
             AssertionError, self.title_should_contain, text, **kwargs)
+
+    @wait_for
+    def source_should_contain(self, text, **kwargs):
+        """ Assert that page source contains text. """
+        self.assertIn(text, self.browser.page_source)
+
+    def source_should_not_contain(self, text, **kwargs):
+        """ Assert that page source does not contain text. """
+        self.assertRaises(
+            AssertionError, self.source_should_contain, text, **kwargs)
