@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import absolute_import
+from future import standard_library
+standard_library.install_aliases()
+from builtins import object
 
-from urlparse import urljoin
+from urllib.parse import urljoin
 
 from django.urls import reverse
 from selenium.webdriver.support.ui import Select
@@ -12,7 +15,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 from .utils import wait_for
 
 
-class NavigationTestMixin:
+class NavigationTestMixin(object):
 
     def get_page(self, url):
         """ Navigate to the given url.  """
