@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import absolute_import
+from builtins import object
 
 import os
 import inspect
@@ -15,7 +16,7 @@ from ..settings import (
 )
 
 
-class DebugTestMixin:
+class DebugTestMixin(object):
 
     """
     Add convenience debug methods to selenium test cases.

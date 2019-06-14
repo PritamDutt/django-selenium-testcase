@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import absolute_import
+from builtins import object
 
 from selenium.webdriver.common.by import By
 
 from .utils import wait_for
 
 
-class FormTestMixin:
+class FormTestMixin(object):
 
     # default search element
     form_search_list = (

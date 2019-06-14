@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import absolute_import
+from builtins import str
+from builtins import object
 
 from django.contrib.auth.models import User
 from django.contrib.sessions.models import Session
@@ -8,7 +10,7 @@ from django.contrib.sessions.models import Session
 from .utils import wait_for
 
 
-class AuthenticationTestMixin:
+class AuthenticationTestMixin(object):
 
     login_url = "/accounts/login/"
     login_username_field = "username"

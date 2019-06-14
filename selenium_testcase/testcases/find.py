@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import absolute_import
+from builtins import object
 
 from selenium.common.exceptions import NoSuchElementException
 
@@ -11,7 +12,7 @@ from ..settings import (
 )
 
 
-class FindTestMixin:
+class FindTestMixin(object):
 
     # exit to debugger on missing element
     pdb_on_missing = PDB_ON_MISSING
