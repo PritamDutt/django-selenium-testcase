@@ -7,6 +7,7 @@ from urlparse import urljoin
 from django.urls import reverse
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.action_chains import ActionChains
 
 from .utils import wait_for
 
@@ -61,6 +62,12 @@ class NavigationTestMixin:
         """ Select a button or link with the given name.  """
         button = self.get_button(value, *args, **kwargs)
         button.click()
+
+    def hover_over_button(self, value, *args, **kwargs):
+        """ Hover over a button or link with the given name. """
+        button = self.get_button(value, *args, **kwargs)
+        hover = ActionChains(self.browser).move_to_element(button)
+        hover.perform()
 
     @wait_for
     def at_page(self, url, **kwargs):
