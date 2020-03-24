@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import absolute_import
-from importlib import reload
+from six.moves import reload_module as reload
 
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.core.urlresolvers import clear_url_caches

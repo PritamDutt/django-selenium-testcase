@@ -5,7 +5,7 @@ from future import standard_library
 standard_library.install_aliases()
 from builtins import object
 
-from urllib.parse import urljoin
+from six.moves.urllib.parse import urljoin
 
 from django.urls import reverse
 from selenium.webdriver.support.ui import Select

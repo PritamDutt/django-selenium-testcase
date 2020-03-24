@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 import sys
 
 from time import time, sleep
-from importlib import reload
+from six.moves import reload_module as reload
 
 from django.conf import settings
 
