@@ -1,7 +1,9 @@
 django-selenium-testcase
 ========================
 
-[![Build Status](https://travis-ci.org/nimbis/django-selenium-testcase.svg?branch=master)](https://travis-ci.org/nimbis/django-selenium-testcase)
+[![pipeline status](https://gitlab.nimbis.io/nimbis/sites/django-selenium-testcase/badges/master/pipeline.svg)](https://gitlab.nimbis.io/nimbis/sites/django-selenium-testcase/-/commits/master)
+
+[![coverage report](https://gitlab.nimbis.io/nimbis/sites/django-selenium-testcase/badges/master/coverage.svg)](https://gitlab.nimbis.io/nimbis/sites/django-selenium-testcase/-/commits/master)
 
 This repository implements a simple subclass of Django LiveServerTestCase that
 enables selenium testing of the Django live server.  Rather than relying on
