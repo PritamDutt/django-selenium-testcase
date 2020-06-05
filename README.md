@@ -2,7 +2,6 @@ django-selenium-testcase
 ========================
 
 [![pipeline status](https://gitlab.nimbis.io/nimbis/sites/django-selenium-testcase/badges/master/pipeline.svg)](https://gitlab.nimbis.io/nimbis/sites/django-selenium-testcase/-/commits/master)
-
 [![coverage report](https://gitlab.nimbis.io/nimbis/sites/django-selenium-testcase/badges/master/coverage.svg)](https://gitlab.nimbis.io/nimbis/sites/django-selenium-testcase/-/commits/master)
 
 This repository implements a simple subclass of Django LiveServerTestCase that
