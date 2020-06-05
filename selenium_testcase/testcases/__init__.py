@@ -4,7 +4,7 @@ from __future__ import absolute_import
 from six.moves import reload_module as reload
 
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
-from django.core.urlresolvers import clear_url_caches
+from django.urls import clear_url_caches
 
 from selenium.webdriver.chrome.options import Options
 
