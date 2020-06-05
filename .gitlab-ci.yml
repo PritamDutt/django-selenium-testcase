@@ -32,6 +32,9 @@ cache:
 # This is a basic example for a gem or script which doesn't use
 # services such as redis or postgres
 before_script:
+  # install binary dependencies
+  - apk add --update alpine-sdk
+  - apk add libxml2-dev libxslt-dev zlib-dev jpeg-dev chromium chromium-chromedriver
   - python -V  # Print out python version for debugging
   # Uncomment next line if your Django app needs a JS runtime:
   # - apt-get update -q && apt-get install nodejs -yqq
