@@ -2,7 +2,7 @@ coverage
 Django<3.0
 docxbuilder
 flake8
-pep8
+pycodestyle
 pip
 pip-tools
 psycopg2
