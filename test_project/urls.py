@@ -20,8 +20,8 @@ from django.views.generic.base import TemplateView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/profile/',
-        TemplateView.as_view(template_name='registration/profile.html'),
-        name='user_profile'),
+         TemplateView.as_view(template_name='registration/profile.html'),
+         name='user_profile'),
     path('accounts/', include('django.contrib.auth.urls')),
     path('', include('selenium_testcase.urls'))
 ]
