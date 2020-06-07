@@ -6,3 +6,4 @@ htmlselenium
 *.pyc
 dist
 *egg-info
+public
