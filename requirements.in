@@ -1,7 +1,15 @@
--e .
-pep8
-flake8
 coverage
 Django<3.0
+docxbuilder
+flake8
+pep8
+pip
+pip-tools
 psycopg2
+recommonmark
+setuptools
 six
+sphinx
+sphinx-git
+sphinx_rtd_theme
+sphinxcontrib-napoleon
