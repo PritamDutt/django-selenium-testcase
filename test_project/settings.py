@@ -16,7 +16,7 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # path for selenium generated files
-SELENIUM_TESTCASE_BASE_DIR = BASE_DIR
+SELENIUM_TESTCASE_BASE_DIR = os.path.join(BASE_DIR, 'public')
 
 # turn on all debug features except for PDB
 SELENIUM_TESTCASE_LOGGING = True
