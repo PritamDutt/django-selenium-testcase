@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
+import getpass
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -85,13 +86,14 @@ WSGI_APPLICATION = 'test_project.wsgi.application'
 
 DATABASES = {
     'default': {
-       'ENGINE': 'django.db.backends.postgresql_psycopg2',
-       'NAME': 'ci',
-       'USER': 'postgres',
-       'PASSWORD': 'postgres',
-       'HOST': 'postgres',
-       'PORT': '5432',
-    },
+        'ENGINE': os.environ.get(
+            'DATABASE_ENGINE', 'django.db.backends.postgresql'),
+        'NAME': os.environ.get('DATABASE_NAME', 'selenium_testcase'),
+        'USER': os.environ.get('DATABASE_USER', getpass.getuser()),
+        'PASSWORD': os.environ.get('DATABASE_PASSWORD', ''),
+        'HOST': os.environ.get('DATABASE_HOST', ''),
+        'PORT': os.environ.get('DATABASE_PORT', '5432'),
+    }
 }
 
 # Password validation
