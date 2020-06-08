@@ -15,7 +15,7 @@ test:
       - .cache/pip
   before_script:
     - yum -y install make python3 python3-pip git
-    - pip3 install virtualenv
+    - pip3 install --user virtualenv
     - virtualenv venv
     - source venv/bin/activate
     - make reqs
