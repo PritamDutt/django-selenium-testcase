@@ -56,13 +56,13 @@ update-reqs reqs-update:
 
 # pep8
 .PHONY: pep8 pycodestyle
-PEP8_OPTS ?= --repeat --exclude=static,migrations,js,docs --show-source
+PEP8_OPTS ?= --repeat --exclude=static,migrations,js,docs,venv --show-source
 pep8 pycodestyle:
 	pycodestyle $(PEP8_OPTS) .
 
 # flake8
 .PHONY: flake8
-FLAKE8_OPTS ?= --exclude=static,migrations,js,docs
+FLAKE8_OPTS ?= --exclude=static,migrations,js,docs,venv
 flake8:
 	flake8 $(FLAKE8_OPTS) .
 
