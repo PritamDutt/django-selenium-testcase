@@ -11,8 +11,7 @@ Contents
    :glob:
 
    Quick Start <README.md>
-   Selenium Testcase <_modules/selenium_testcase.rst>
-   Test Project <_modules/test_project.rst>
+   _modules/modules.rst
 
 Recent Changes
 ==============
