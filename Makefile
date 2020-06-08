@@ -1,11 +1,11 @@
 # You can set these variables from the command line
 # arguments for sphinx-apidoc autodoc builds
 
-SPHINXOPTS     ?= -n -W
+SPHINXOPTS     ?= -n
 SPHINXBUILD    ?= sphinx-build
 SOURCEDIR      ?= docs
 BUILDDIR       ?= public
-APIOPTS        ?= -f -T -e
+APIOPTS        ?= -f -e
 APIDOCBUILD    ?= sphinx-apidoc
 APISOURCE      ?= selenium_testcase
 APIDEST        ?= docs/_modules
