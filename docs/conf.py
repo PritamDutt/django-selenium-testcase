@@ -163,3 +163,8 @@ linkcheck_ignore = [
     r'https://account.activedirectory.windowsazure.com/.*$'
 ]
 
+# -- Nitpick Ignore ----------------------------------------------------------
+
+nitpick_ignore = [
+    ('py:class', 'django.apps.config.AppConfig'),
+]
