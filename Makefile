@@ -42,7 +42,7 @@ docs:
 .PHONY: clean
 clean:
 	rm -rf $(BUILDDIR)/* $(APIDEST)
-	find . -type d -name __pycache__ -delete
+	find . -name __pycache__ | xargs rm -rf
 
 # install requirements using pip
 .PHONY: reqs
