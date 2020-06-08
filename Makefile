@@ -5,7 +5,7 @@ SPHINXOPTS     ?= -n -W
 SPHINXBUILD    ?= sphinx-build
 SOURCEDIR      ?= docs
 BUILDDIR       ?= public
-APIOPTS        ?= -f
+APIOPTS        ?= -f -T -e
 APIDOCBUILD    ?= sphinx-apidoc
 APISOURCE      ?= selenium_testcase
 APIDEST        ?= docs/_modules
@@ -42,7 +42,7 @@ docs:
 .PHONY: clean
 clean:
 	rm -rf $(BUILDDIR)/* $(APIDEST)
-	find . -name "__pycache__" -exec rm -rf {} \;
+	find . -type d -name __pycache__ -delete
 
 # install requirements using pip
 .PHONY: reqs
