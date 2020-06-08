@@ -4,8 +4,6 @@ include:
   - template: SAST.gitlab-ci.yml
   - template: DAST.gitlab-ci.yml
   - template: License-Scanning.gitlab-ci.yml
-  - project: 'nimbis/docs/common'
-    file: 'templates/docs-ci.yml'
 
 test:
   stage: test
@@ -23,6 +21,30 @@ test:
     - make reqs
   script:
     - python -V
-    - make test
+    - make all
   rules:
     - if: $CI_COMMIT_BRANCH != "master"
+
+# deploy documentation to pages
+pages:
+  stage: deploy
+  image: centos:7
+  variables:
+    PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+  cache:
+    paths:
+      - .cache/pip
+  before_script:
+    - yum -y install make python3 python3-pip git libpq-devel
+    - pip3 install virtualenv
+    - virtualenv venv
+    - source venv/bin/activate
+    - make reqs
+  script:
+    - python -V
+    - make all
+  artifacts:
+    paths:
+    - public
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
