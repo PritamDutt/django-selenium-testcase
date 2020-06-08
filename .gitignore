@@ -7,3 +7,4 @@ htmlselenium
 dist
 *egg-info
 public
+_modules
