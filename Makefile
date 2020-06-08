@@ -25,12 +25,24 @@ help:
 # run a complete test suite
 .PHONY: all
 all:
+	@echo -e "section_start:`date +%s`:make_clean\r\e[0KMake clean"
 	make clean
+	@echo -e "section_end:`date +%s`:make_clean\r\e[0K"
+	@echo -e "section_start:`date +%s`:make_pycodestyle\r\e[0KMake pycodestyle"
 	make pycodestyle
+	@echo -e "section_end:`date +%s`:make_pycodestyle\r\e[0K"
+	@echo -e "section_start:`date +%s`:make_flake8\r\e[0Kmake clean"
 	make flake8
+	@echo -e "section_end:`date +%s`:make_flake8\r\e[0K"
+	@echo -e "section_start:`date +%s`:make_test\r\e[0Kmake clean"
 	make test
+	@echo -e "section_end:`date +%s`:make_test\r\e[0K"
+	@echo -e "section_start:`date +%s`:make_coverage\r\e[0Kmake clean"
 	make coverage
+	@echo -e "section_end:`date +%s`:make_coverage\r\e[0K"
+	@echo -e "section_start:`date +%s`:make_docs\r\e[0Kmake clean"
 	make docs
+	@echo -e "section_end:`date +%s`:make_docs\r\e[0K"
 
 # make all docs
 .PHONY: docs
