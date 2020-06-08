@@ -167,4 +167,5 @@ linkcheck_ignore = [
 
 nitpick_ignore = [
     ('py:class', 'django.apps.config.AppConfig'),
+    ('py:class', 'django.contrib.staticfiles.testing.StaticLiveServerTestCase'),
 ]
