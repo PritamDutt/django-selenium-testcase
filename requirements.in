@@ -1,0 +1,16 @@
+coverage
+Django<3.0
+docxbuilder
+flake8
+pycodestyle
+pip
+pip-tools
+psycopg2
+recommonmark
+selenium
+setuptools
+six
+sphinx
+sphinx-git
+sphinx_rtd_theme
+sphinxcontrib-napoleon

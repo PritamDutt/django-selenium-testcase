@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import absolute_import
+from builtins import object
 
 from .utils import wait_for
 
 from selenium.common.exceptions import NoSuchElementException
 
 
-class ContentTestMixin:
+class ContentTestMixin(object):
 
     def should_see_immediately(self, text, **kwargs):
         """ Assert that DOM contains the given text. """

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import absolute_import
+from builtins import object
 
 import os
 import inspect
@@ -15,7 +16,7 @@ from ..settings import (
 )
 
 
-class DebugTestMixin:
+class DebugTestMixin(object):
 
     """
     Add convenience debug methods to selenium test cases.
@@ -177,7 +178,7 @@ class DebugTestMixin:
                     'text': self.get_visible_text()})
 
             # write it to the file
-            self._selenium_log_file.write(html.encode('utf8'))
+            self._selenium_log_file.write(html)
 
     def render_entry_log(self):
         """

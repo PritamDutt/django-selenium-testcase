@@ -1,0 +1,100 @@
+# turn on all of the security pipelines
+include:
+  - template: Dependency-Scanning.gitlab-ci.yml
+  - template: SAST.gitlab-ci.yml
+  - template: DAST.gitlab-ci.yml
+  - template: License-Scanning.gitlab-ci.yml
+
+test:
+  stage: test
+  image: centos:7
+  services:
+    - postgres:latest
+  variables:
+    PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+    POSTGRES_DB: ci
+    POSTGRES_USER: postgres
+    POSTGRES_PASSWORD: postgres
+    POSTGRES_HOST_AUTH_METHOD: trust
+    DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/ci"
+    DATABASE_HOST: postgres
+    DATABASE_NAME: $POSTGRES_DB
+    DATABASE_USER: $POSTGRES_USER
+    DATABASE_PASSWORD: $POSTGRES_PASSWORD
+  cache:
+    paths:
+      - .cache/pip
+  before_script:
+    # install required base packages
+    - yum -y install make gcc python3 python3-devel python3-pip git tree wget unzip
+      postgresql-devel postgresql-server postgresql-contrib
+    # install chrome
+    - wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
+    - yum -y localinstall google-chrome-stable_current_x86_64.rpm
+    # install latest chromedriver
+    - export LATEST_RELEASE=$(curl http://chromedriver.storage.googleapis.com/LATEST_RELEASE)
+    - wget https://chromedriver.storage.googleapis.com/$LATEST_RELEASE/chromedriver_linux64.zip
+    - mkdir chromedriver
+    - unzip chromedriver_linux64.zip -d chromedriver
+    - export PATH=$PATH:$PWD/chromedriver
+    # configure python 3 virtualenv
+    - pip3 install virtualenv
+    - virtualenv venv
+    - source venv/bin/activate
+    # install package requirements
+    - make reqs
+  script:
+    - python -V
+    - export PGPASSWORD=$POSTGRES_PASSWORD
+    - psql -h "postgres" -U "$POSTGRES_USER" -d "$POSTGRES_DB" -c "SELECT 'OK' AS status;"
+    - make all
+  rules:
+    - if: $CI_COMMIT_BRANCH != "master"
+
+# deploy documentation to pages
+pages:
+  stage: deploy
+  image: centos:7
+  services:
+    - postgres:latest
+  variables:
+    PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+    POSTGRES_DB: ci
+    POSTGRES_USER: postgres
+    POSTGRES_PASSWORD: postgres
+    POSTGRES_HOST_AUTH_METHOD: trust
+    DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/ci"
+    DATABASE_HOST: postgres
+    DATABASE_NAME: $POSTGRES_DB
+    DATABASE_USER: $POSTGRES_USER
+    DATABASE_PASSWORD: $POSTGRES_PASSWORD
+  cache:
+    paths:
+      - .cache/pip
+  before_script:
+    # install required base packages
+    - yum -y install make gcc python3 python3-devel python3-pip git tree wget unzip
+      postgresql-devel postgresql-server postgresql-contrib
+    # install chrome
+    - wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
+    - yum localinstall google-chrome-stable_current_x86_64.rpm
+    # install latest chromedriver
+    - export LATEST_RELEASE=$(curl http://chromedriver.storage.googleapis.com/LATEST_RELEASE)
+    - wget https://chromedriver.storage.googleapis.com/$LATEST_RELEASE/chromedriver_linux64.zip
+    - mkdir chromedriver
+    - unzip chromedriver_linux64.zip -d chromedriver
+    - export PATH=$PATH:$PWD/chromedriver
+    # configure python 3 virtualenv
+    - pip3 install virtualenv
+    - virtualenv venv
+    - source venv/bin/activate
+    # install package requirements
+    - make reqs
+  script:
+    - python -V
+    - make all
+  artifacts:
+    paths:
+    - public
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
