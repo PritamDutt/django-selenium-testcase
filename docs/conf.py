@@ -22,6 +22,7 @@ django.setup()
 # -- Project information -----------------------------------------------------
 
 project = 'Django Selenium Testcase'
+project_slug = 'django_selenium_testcase'
 copyright = '2020, Nimbis Services, Inc.'
 author = 'Nimbis Services, Inc.'
 
@@ -29,6 +30,29 @@ author = 'Nimbis Services, Inc.'
 version = u''
 # The full version, including alpha/beta/rc tags
 release = u''
+
+gitlab_group = 'nimbis'
+gitlab_project = 'templates/documentation'
+gitlab_base = 'https://gitlab.nimbis.io/'
+pages_base = 'https://nimbis.pages.nimbis.io/'
+
+# build up links for pages view, gitlab view, and edit on gitlab
+# make these None to disable in your template
+
+pages_url = pages_base + gitlab_project + '/'
+gitlab_url = '/'.join(
+    (gitlab_base, gitlab_group, gitlab_project)) + '/-/blob/master/docs/'
+ide_url = gitlab_base + '/'.join(
+    ('-/ide/project', gitlab_group, gitlab_project, 'edit/master/-/docs/'))
+
+# pdf_url = None
+pdf_url = pages_url + project_slug + '.pdf'
+
+coverage_url = None
+# coverage_url = pages_url + 'coverage/index.html'
+
+selenium_url = None
+# selenium_url = pages_url + 'htmlselenium/index.html'
 
 # -- General configuration ---------------------------------------------------
 
@@ -94,6 +118,17 @@ html_theme = "sphinx_rtd_theme"
 html_theme_path = ["_themes", ]
 html_logo = "logo.png"
 html_favicon = "favicon.ico"
+
+# -- pass some context variables to the context
+
+html_context = {
+    'gitlab_url': gitlab_url,
+    'ide_url': ide_url,
+    'pages_url': pages_url,
+    'pdf_url': pdf_url,
+    'coverage_url': coverage_url,
+    'selenium_url': selenium_url,
+}
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the

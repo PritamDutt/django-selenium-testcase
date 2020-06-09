@@ -1,0 +1,29 @@
+{% extends "!breadcrumbs.html" %}
+
+{% block breadcrumbs_aside %}
+    {% if selenium_url %}
+    <li class="wy-breadcrumbs-aside">
+        <a href="{{ selenium_url }}" class="fa fa-film" title="View Selenium"> </a>
+    </li>
+    {% endif %}
+    {% if coverage_url %}
+    <li class="wy-breadcrumbs-aside">
+        <a href="{{ coverage_url }}" class="fa fa-umbrella" title="View Coverage"> </a>
+    </li>
+    {% endif %}
+    {% if pdf_url %}
+    <li class="wy-breadcrumbs-aside">
+        <a href="{{ pdf_url }}" class="fa fa-print" title="View PDF"> </a>
+    </li>
+    {% endif %}
+    {% if ide_url %}
+    <li class="wy-breadcrumbs-aside">
+        <a href="{{ ide_url }}{{ pagename }}{{ suffix }}" class="fa fa-pencil-square-o" title="Edit on GitLab"></a>
+    </li>
+    {% endif %}
+    {% if gitlab_url %}
+    <li class="wy-breadcrumbs-aside">
+        <a href="{{ gitlab_url }}{{ pagename }}{{ suffix }}" class="fa fa-gitlab" title="View Source"> </a>
+    </li>
+    {% endif %}
+{% endblock %}
