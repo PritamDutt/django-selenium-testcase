@@ -77,7 +77,7 @@ pages:
       postgresql-devel postgresql-server postgresql-contrib
     # install chrome
     - wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
-    - yum localinstall google-chrome-stable_current_x86_64.rpm
+    - yum -y localinstall google-chrome-stable_current_x86_64.rpm
     # install latest chromedriver
     - export LATEST_RELEASE=$(curl http://chromedriver.storage.googleapis.com/LATEST_RELEASE)
     - wget https://chromedriver.storage.googleapis.com/$LATEST_RELEASE/chromedriver_linux64.zip
