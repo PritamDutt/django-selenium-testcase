@@ -4,6 +4,15 @@ django-selenium-testcase
 [![pipeline status](https://gitlab.nimbis.io/nimbis/sites/django-selenium-testcase/badges/master/pipeline.svg)](https://gitlab.nimbis.io/nimbis/sites/django-selenium-testcase/-/commits/master)
 [![coverage report](https://gitlab.nimbis.io/nimbis/sites/django-selenium-testcase/badges/master/coverage.svg)](https://gitlab.nimbis.io/nimbis/sites/django-selenium-testcase/-/commits/master)
 
+Quick Links
+-----------
+
+* [Online Documentation](https://nimbis.pages.nimbis.io/sites/django-selenium-testcase/index.html)
+* [Coverage Report](https://nimbis.pages.nimbis.io/sites/django-selenium-testcase/coverage/index.html)
+* [Selenium Test](https://nimbis.pages.nimbis.io/sites/django-selenium-testcase/htmlselenium/index.html)
+
+Introduction
+------------
 This repository implements a simple subclass of Django LiveServerTestCase that
 enables selenium testing of the Django live server.  Rather than relying on
 Gherkin syntax found in Lettuce and Aloe tools, this package favors of python
