@@ -8,13 +8,19 @@ include:
 test:
   stage: test
   image: centos:7
+  services:
+    - postgres:latest
   variables:
     PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
     POSTGRES_DB: ci
     POSTGRES_USER: postgres
     POSTGRES_PASSWORD: postgres
     POSTGRES_HOST_AUTH_METHOD: trust
-    DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/$POSTGRES_DB"
+    DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/ci"
+    DATABASE_HOST: postgres
+    DATABASE_NAME: $POSTGRES_DB
+    DATABASE_USER: $POSTGRES_USER
+    DATABASE_PASSWORD: $POSTGRES_PASSWORD
   cache:
     paths:
       - .cache/pip
@@ -34,8 +40,19 @@ test:
 pages:
   stage: deploy
   image: centos:7
+  services:
+    - postgres:latest
   variables:
     PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+    POSTGRES_DB: ci
+    POSTGRES_USER: postgres
+    POSTGRES_PASSWORD: postgres
+    POSTGRES_HOST_AUTH_METHOD: trust
+    DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/ci"
+    DATABASE_HOST: postgres
+    DATABASE_NAME: $POSTGRES_DB
+    DATABASE_USER: $POSTGRES_USER
+    DATABASE_PASSWORD: $POSTGRES_PASSWORD
   cache:
     paths:
       - .cache/pip
