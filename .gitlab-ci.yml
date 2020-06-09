@@ -25,13 +25,28 @@ test:
     paths:
       - .cache/pip
   before_script:
-    - yum -y install make python3 python3-pip git postgresql-devel gcc python3-devel
+    # install required base packages
+    - yum -y install make gcc python3 python3-devel python3-pip git tree wget unzip
+      postgresql-devel postgresql-server postgresql-contrib
+    # install chrome
+    - wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
+    - yum -y localinstall google-chrome-stable_current_x86_64.rpm
+    # install latest chromedriver
+    - export LATEST_RELEASE=$(curl http://chromedriver.storage.googleapis.com/LATEST_RELEASE)
+    - wget https://chromedriver.storage.googleapis.com/$LATEST_RELEASE/chromedriver_linux64.zip
+    - mkdir chromedriver
+    - unzip chromedriver_linux64.zip -d chromedriver
+    - export PATH=$PATH:$PWD/chromedriver
+    # configure python 3 virtualenv
     - pip3 install virtualenv
     - virtualenv venv
     - source venv/bin/activate
+    # install package requirements
     - make reqs
   script:
     - python -V
+    - export PGPASSWORD=$POSTGRES_PASSWORD
+    - psql -h "postgres" -U "$POSTGRES_USER" -d "$POSTGRES_DB" -c "SELECT 'OK' AS status;"
     - make all
   rules:
     - if: $CI_COMMIT_BRANCH != "master"
@@ -57,10 +72,23 @@ pages:
     paths:
       - .cache/pip
   before_script:
-    - yum -y install make python3 python3-pip git postgresql-devel gcc python3-devel
+    # install required base packages
+    - yum -y install make gcc python3 python3-devel python3-pip git tree wget unzip
+      postgresql-devel postgresql-server postgresql-contrib
+    # install chrome
+    - wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
+    - yum localinstall google-chrome-stable_current_x86_64.rpm
+    # install latest chromedriver
+    - export LATEST_RELEASE=$(curl http://chromedriver.storage.googleapis.com/LATEST_RELEASE)
+    - wget https://chromedriver.storage.googleapis.com/$LATEST_RELEASE/chromedriver_linux64.zip
+    - mkdir chromedriver
+    - unzip chromedriver_linux64.zip -d chromedriver
+    - export PATH=$PATH:$PWD/chromedriver
+    # configure python 3 virtualenv
     - pip3 install virtualenv
     - virtualenv venv
     - source venv/bin/activate
+    # install package requirements
     - make reqs
   script:
     - python -V
