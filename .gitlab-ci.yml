@@ -12,8 +12,10 @@ variables:
 dependency_scanning:
   before_script:
     # Install system dependencies required by `pip install requirements.txt`
-    - apk update
-    - apk add postgresql-dev gcc python3-dev musl-dev
+    - which apk
+    - which apt-get
+    - which yum
+    - uname -a
 
 test:
   stage: test
