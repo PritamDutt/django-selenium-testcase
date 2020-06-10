@@ -12,7 +12,7 @@ variables:
 dependency_scanning:
   before_script:
     # Install system dependencies required by `pip install requirements.txt`
-    - apt-get install -y python3-dev postgresql
+    - apt-get install -y python3-dev postgresql libpq-dev
 
 test:
   stage: test
