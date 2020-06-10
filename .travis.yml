@@ -1,7 +1,5 @@
 sudo: required
 language: python
-python:
-  - "2.7"
 addons:
   chrome: stable
   firefox: latest
