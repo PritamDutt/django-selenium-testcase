@@ -5,6 +5,16 @@ include:
   - template: DAST.gitlab-ci.yml
   - template: License-Scanning.gitlab-ci.yml
 
+variables:
+  # Disable Docker-in-Docker so gemnasium scan uses build container
+  DS_DISABLE_DIND: "true"
+
+dependency_scanning:
+  before_script:
+    # Install system dependencies required by `pip install requirements.txt`
+    - apk update
+    - apk add postgresql-dev gcc python3-dev musl-dev
+
 test:
   stage: test
   image: centos:7
