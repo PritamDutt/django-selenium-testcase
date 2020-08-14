@@ -177,7 +177,7 @@ class DebugTestMixin:
                     'text': self.get_visible_text()})
 
             # write it to the file
-            self._selenium_log_file.write(html.encode('utf8'))
+            self._selenium_log_file.write(str(html.encode('utf8')))
 
     def render_entry_log(self):
         """

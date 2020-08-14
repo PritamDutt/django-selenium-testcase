@@ -2,8 +2,10 @@
 
 from __future__ import absolute_import
 
+from importlib import reload
+
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
-from django.core.urlresolvers import clear_url_caches
+from django.urls import clear_url_caches
 
 from selenium.webdriver.chrome.options import Options
 

@@ -2,7 +2,7 @@
 
 from __future__ import absolute_import
 
-from urlparse import urljoin
+from urllib.parse import urljoin
 
 from django.urls import reverse
 from selenium.webdriver.support.ui import Select

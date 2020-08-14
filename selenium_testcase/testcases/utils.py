@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+from importlib import reload
 import sys
 
 from time import time, sleep

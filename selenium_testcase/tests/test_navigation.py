@@ -33,7 +33,7 @@ class NavigationTestCase(SeleniumLiveTestCase):
         self.get_page("/bogus/")
         self.should_see("Not Found")
         self.should_see(
-            "The requested URL /bogus/ was not found on this server.")
+            "The requested resource was not found on this server.")
 
     def test_missing_content_with_retry(self):
         """ Test retry for missing content """
