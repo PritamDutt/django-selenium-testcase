@@ -45,11 +45,11 @@ class NavigationTestMixin:
     button_search_list = (
         (By.ID, '{}',),
         (By.NAME, '{}',),
-        (By.XPATH, '//a[text()="{}"]',),
+        (By.XPATH, '//a[normalize-space()="{}"]',),
         (By.XPATH, '//input[@value="{}"]',),
         (By.XPATH, '//input[@type="{}"]', ),
-        (By.XPATH, '//button[text()="{}"]',),
-        (By.XPATH, '//button[text()[contains(.,"{}")]]',),
+        (By.XPATH, '//button[normalize-space()="{}"]',),
+        (By.XPATH, '//button[normalize-space()[contains(.,"{}")]]',),
     )
 
     @wait_for
