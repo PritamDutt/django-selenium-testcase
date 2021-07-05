@@ -1,18 +1,13 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
-import sys
-
 from time import time, sleep
 
 from django.conf import settings
-
 from selenium.common.exceptions import WebDriverException
-
 
 # Note: This function was adapted from code in the aloe-webdriver
 # project (under the MIT license)
 # https://github.com/aloetesting/aloe_webdriver
+from selenium.webdriver.support.wait import WebDriverWait
+
 
 def wait_for(func):
     """
@@ -27,16 +22,18 @@ def wait_for(func):
 
         # allow wait_for to be overridden by class or settings
         TIMEOUT = getattr(
-            self, 'selenium_timeout',
-            getattr(settings, 'SELENIUM_TESTCASE_TIMEOUT', 15))
+            self, "selenium_timeout", getattr(settings, "SELENIUM_TESTCASE_TIMEOUT", 15)
+        )
 
         # allow loop delay to be overridden by class or settings
         CHECK_EVERY = getattr(
-            self, 'selenium_check_every',
-            getattr(settings, 'SELENIUM_TESTCASE_CHECK_EVERY', 0.2))
+            self,
+            "selenium_check_every",
+            getattr(settings, "SELENIUM_TESTCASE_CHECK_EVERY", 0.2),
+        )
 
         # adjust timeout with a timeout=<integer seconds>
-        timeout = kwargs.pop('timeout', TIMEOUT)
+        timeout = kwargs.pop("timeout", TIMEOUT)
 
         start = None
 
@@ -65,11 +62,13 @@ def wait_for(func):
     return wrapped
 
 
-# Note: This function was adapted from
-# http://codeinthehole.com/tips/how-to-reload-djangos-url-config/
-
-def reload_urlconf(urlconf=None):
-    if urlconf is None:
-        urlconf = settings.ROOT_URLCONF
-    if urlconf in sys.modules:
-        reload(sys.modules[urlconf])
+def wait_for_ajax(driver):
+    wait = WebDriverWait(driver, 15)
+    try:
+        wait.until(lambda driver: driver.execute_script("return jQuery.active") == 0)
+        wait.until(
+            lambda driver: driver.execute_script("return document.readyState")
+            == "complete"
+        )
+    except Exception as e:
+        pass

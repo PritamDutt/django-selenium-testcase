@@ -1,14 +1,9 @@
-# -*- coding: utf-8 -*-
-
-from __future__ import absolute_import
+from selenium.common.exceptions import NoSuchElementException
 
 from .utils import wait_for
 
-from selenium.common.exceptions import NoSuchElementException
-
 
 class ContentTestMixin:
-
     def should_see_immediately(self, text, **kwargs):
         """ Assert that DOM contains the given text. """
         return self.find_text(text, **kwargs)
@@ -20,8 +15,7 @@ class ContentTestMixin:
 
     def should_not_see(self, text, **kwargs):
         """ Wait for text to not appear before testing assertion. """
-        self.assertRaises(
-            NoSuchElementException, self.should_see, text, **kwargs)
+        self.assertRaises(NoSuchElementException, self.should_see, text, **kwargs)
 
     @wait_for
     def title_should_be(self, title, **kwargs):
@@ -30,8 +24,7 @@ class ContentTestMixin:
 
     def title_should_not_be(self, title, **kwargs):
         """ Assert when page title does not match. """
-        self.assertRaises(
-            AssertionError, self.title_should_be, title, **kwargs)
+        self.assertRaises(AssertionError, self.title_should_be, title, **kwargs)
 
     @wait_for
     def title_should_contain(self, text, **kwargs):
@@ -40,8 +33,7 @@ class ContentTestMixin:
 
     def title_should_not_contain(self, text, **kwargs):
         """ Assert that page title does not contain text. """
-        self.assertRaises(
-            AssertionError, self.title_should_contain, text, **kwargs)
+        self.assertRaises(AssertionError, self.title_should_contain, text, **kwargs)
 
     @wait_for
     def source_should_contain(self, text, **kwargs):
@@ -50,5 +42,4 @@ class ContentTestMixin:
 
     def source_should_not_contain(self, text, **kwargs):
         """ Assert that page source does not contain text. """
-        self.assertRaises(
-            AssertionError, self.source_should_contain, text, **kwargs)
+        self.assertRaises(AssertionError, self.source_should_contain, text, **kwargs)

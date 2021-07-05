@@ -1,9 +1,5 @@
-# -*- coding: utf-8 -*-
-
-from __future__ import absolute_import
-
-import os
 import inspect
+import os
 
 from django.conf import settings
 from django.template.loader import render_to_string
@@ -16,7 +12,6 @@ from ..settings import (
 
 
 class DebugTestMixin:
-
     """
     Add convenience debug methods to selenium test cases.
 
@@ -75,27 +70,27 @@ class DebugTestMixin:
     _selenium_log_file = None
 
     # base path for files created by this package
-    selenium_base_dir = getattr(settings, 'SELENIUM_TESTCASE_BASE_DIR', '.')
+    selenium_base_dir = getattr(settings, "SELENIUM_TESTCASE_BASE_DIR", ".")
 
     # log to an HTML file for all tests, if true
     selenium_logging = SELENIUM_LOGGING
 
     # templates used for log file generation
     selenium_header_template = getattr(
-        settings, 'SELENIUM_TESTCASE_HEADER_TEMPLATE',
-        'selenium_testcase/header.html')
+        settings, "SELENIUM_TESTCASE_HEADER_TEMPLATE", "selenium_testcase/header.html"
+    )
 
     selenium_footer_template = getattr(
-        settings, 'SELENIUM_TESTCASE_FOOTER_TEMPLATE',
-        'selenium_testcase/footer.html')
+        settings, "SELENIUM_TESTCASE_FOOTER_TEMPLATE", "selenium_testcase/footer.html"
+    )
 
     selenium_testcase_entry_template = getattr(
-        settings, 'SELENIUM_TESTCASE_ENTRY_TEMPLATE',
-        'selenium_testcase/entry.html')
+        settings, "SELENIUM_TESTCASE_ENTRY_TEMPLATE", "selenium_testcase/entry.html"
+    )
 
     selenium_testcase_exit_template = getattr(
-        settings, 'SELENIUM_TESTCASE_EXIT_TEMPLATE',
-        'selenium_testcase/exit.html')
+        settings, "SELENIUM_TESTCASE_EXIT_TEMPLATE", "selenium_testcase/exit.html"
+    )
 
     def render_header_log(self):
         """
@@ -109,9 +104,8 @@ class DebugTestMixin:
         if self.selenium_logging:
 
             # create destination path and HTML file
-            path = os.path.join(self.selenium_base_dir, 'htmlselenium')
-            name = "{}.{}.{}.html".format(
-                self.id(), TEST_BROWSER, SELENIUM_WINDOW_SIZE)
+            path = os.path.join(self.selenium_base_dir, "htmlselenium")
+            name = "{}.{}.{}.html".format(self.id(), TEST_BROWSER, SELENIUM_WINDOW_SIZE)
             file = os.path.join(path, name)
 
             # try to make the destination path
@@ -127,7 +121,8 @@ class DebugTestMixin:
             # render the header
             html = render_to_string(
                 self.selenium_header_template,
-                {'id': self.id(), 'description': self.__doc__})
+                {"id": self.id(), "description": self.__doc__},
+            )
 
             # write it to the file
             self._selenium_log_file.write(html)
@@ -139,11 +134,11 @@ class DebugTestMixin:
 
         # clean up the log file
         if self._selenium_log_file:
-
             # render the footer
             html = render_to_string(
                 self.selenium_footer_template,
-                {'id': self.id(), 'description': self.__doc__})
+                {"id": self.id(), "description": self.__doc__},
+            )
 
             # write it to the file
             self._selenium_log_file.write(html)
@@ -155,29 +150,37 @@ class DebugTestMixin:
 
         # only write to the log file if it exists
         if self._selenium_log_file:
-
             id = self.id()
             description = self.shortDescription()
 
             # grab the stack frame info from test_* method
-            (obj, filename, lineno, function, code_context, index) \
-                = self.get_test_frame()
+            (
+                obj,
+                filename,
+                lineno,
+                function,
+                code_context,
+                index,
+            ) = self.get_test_frame()
 
             # render the test case debug
             html = render_to_string(
-                template, {
-                    'id': id,
-                    'description': description,
-                    'filename': filename,
-                    'lineno': lineno,
-                    'function': function,
-                    'code_context': code_context,
-                    'index': index,
-                    'png': self.get_image_uri(),
-                    'text': self.get_visible_text()})
+                template,
+                {
+                    "id": id,
+                    "description": description,
+                    "filename": filename,
+                    "lineno": lineno,
+                    "function": function,
+                    "code_context": code_context,
+                    "index": index,
+                    "png": self.get_image_uri(),
+                    "text": self.get_visible_text(),
+                },
+            )
 
             # write it to the file
-            self._selenium_log_file.write(html.encode('utf8'))
+            self._selenium_log_file.write(html.encode("utf8"))
 
     def render_entry_log(self):
         """
@@ -193,15 +196,14 @@ class DebugTestMixin:
 
     def get_image_uri(self):
         """ Return a data uri with a base64 embedded screenshot. """
-        return "data:image/png;base64," + \
-            self.browser.get_screenshot_as_base64()
+        return "data:image/png;base64," + self.browser.get_screenshot_as_base64()
 
     def get_visible_text(self):
         """ Return visible text from the body element. """
         return self.browser.find_element_by_xpath("//body").text
 
     def get_test_frame(self):
-        """ Return the stack frame of the current test.
+        """Return the stack frame of the current test.
 
         This method extracts the test method name (i.e. 'test_forms') from the
         TestCase id() and traverses up the stack frame until it finds a
@@ -211,7 +213,7 @@ class DebugTestMixin:
         """
 
         # get function from end of unittest id()
-        target = self.id().split('.')[-1]
+        target = self.id().split(".")[-1]
 
         # traverse frames until function name is found
         for frame in inspect.stack():

@@ -1,15 +1,10 @@
-# -*- coding: utf-8 -*-
-
-from __future__ import absolute_import
-
 from selenium.common.exceptions import NoSuchElementException
 
 from ..testcases import SeleniumLiveTestCase
 
 
 class FormTestCase(SeleniumLiveTestCase):
-
-    test_templates = [(r'', 'form.html')]
+    test_templates = [(r"", "form.html")]
 
     def test_get_form(self):
         """
@@ -37,10 +32,9 @@ class FormTestCase(SeleniumLiveTestCase):
 
 
 class MissingFormTestCase(SeleniumLiveTestCase):
-
     selenium_timeout = 1
 
     def test_missing_form(self):
-        """ Look for a form that does not exist. """
+        """Look for a form that does not exist."""
         self.get_page("/")
         self.assertRaises(NoSuchElementException, self.get_form)

@@ -1,7 +1,6 @@
-from django.conf.urls import url
 from django.conf import settings
+from django.conf.urls import url
 from django.views.generic import TemplateView
-
 
 TEST_TEMPLATES = getattr(settings, 'SELENIUM_TESTCASE_TEMPLATES', [])
 

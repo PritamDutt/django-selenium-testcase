@@ -1,7 +1,3 @@
-# -*- coding: utf-8 -*-
-
-from __future__ import absolute_import
-
 from selenium.common.exceptions import NoSuchElementException
 
 from ..settings import (
@@ -12,7 +8,6 @@ from ..settings import (
 
 
 class FindTestMixin:
-
     # exit to debugger on missing element
     pdb_on_missing = PDB_ON_MISSING
 
@@ -25,16 +20,17 @@ class FindTestMixin:
     def _raise_no_such_element(self, message, *args, **kwargs):
         """ Raise missing exception with extra features. """
 
-        if kwargs.get('text', self.text_on_missing):
+        if kwargs.get("text", self.text_on_missing):
             message += "---\n" + self.get_visible_text() + "\n---\n"
 
         # dump image data link to exception message
-        if kwargs.get('png', self.png_on_missing):
+        if kwargs.get("png", self.png_on_missing):
             message += "---\n" + self.get_image_uri() + "\n---\n"
 
         # exit to pdb if flag is set
-        if kwargs.get('pdb', self.pdb_on_missing):
+        if kwargs.get("pdb", self.pdb_on_missing):
             import pdb
+
             pdb.set_trace()
 
         # raise the exception if we get this far
@@ -54,8 +50,8 @@ class FindTestMixin:
 
     def find_element(self, search_list, *args, **kwargs):
         """ Return a single element by optional index. """
-        index = kwargs.get('index', 0)
-        kwargs['count'] = index + 1
+        index = kwargs.get("index", 0)
+        kwargs["count"] = index + 1
         elements = self.find_elements(search_list, *args, **kwargs)
         return elements[index]
 
@@ -63,7 +59,7 @@ class FindTestMixin:
         """ Traverse a search list looking for count visible elements. """
 
         # find this many visible elements at a minimum
-        count = kwargs.get('count', 1)
+        count = kwargs.get("count", 1)
 
         # construct error message string just in case
         message = "Unable to find element, tried:\n"

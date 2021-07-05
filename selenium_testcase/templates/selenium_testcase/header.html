@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
-   "http://www.w3.org/TR/html4/strict.dtd">
+        "http://www.w3.org/TR/html4/strict.dtd">
 
 <html lang="en">
 <head>
@@ -7,14 +7,14 @@
   <title>{% block title %}{{ id }}{% endblock %}</title>
 </head>
 <body id="{% block body_id %}{% endblock %}" class="{% block body_class %}{% endblock %}">
-  <div id="body">
-    {% block body %}
-      <div class="content_title">
-        <h1> {% block content_title %}{{ id }}{% endblock %}</h1>
-      </div>
-      <div class="content">
-        {% block content %}{{ description }}{% endblock %}
-      </div>
-    {% endblock %}
-  </div>
+<div id="body">
+  {% block body %}
+    <div class="content_title">
+      <h1> {% block content_title %}{{ id }}{% endblock %}</h1>
+    </div>
+    <div class="content">
+      {% block content %}{{ description }}{% endblock %}
+    </div>
+  {% endblock %}
+</div>
 
