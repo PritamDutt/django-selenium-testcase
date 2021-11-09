@@ -7,7 +7,6 @@ from .testcases import headless
 
 # choose the test browser class from this list
 BROWSER_CHOICES = {
-    "android": webdriver.Android,
     "chrome": webdriver.Chrome,
     "chrome-headless": headless.Chrome,
     "edge": webdriver.Edge,
